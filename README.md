@@ -38,9 +38,8 @@ After a few seconds, you should see containers appearing as SysFlow agents.
 To uninstall/delete the `sysflow` deployment:
 
 ```bash
-$ helm delete sysflow
+$ helm uninstall sysflow
 ```
-> **Tip**: Use helm delete --purge sysflow to completely remove the release from Helm internal storage
 
 The command removes all the Kubernetes components associated with the chart and deletes the Helm release.
 
@@ -54,8 +53,8 @@ The following table lists the configurable parameters of the SysFlow chart and t
 | `sfcollector.tag`             | The image tag to pull                                                | `latest`                                    |
 | `sfcollector.interval`        | Timeout in seconds to start roll a new trace files                   | `300`                                       |
 | `sfcollector.outDir`          | Output directory, where traces are written to inside container       | `/mnt/data/`                                |
-| `sfcollector.filter`          | Collection filter                                                    | `\"container.type!=host and container.name!=sfexporter and container.name!=sfcollector\"`                                      |
-| `sfcollector.criPath`         | Use this criPath if running docker runtime                           | ``                                          |
+| `sfcollector.filter`          | Collection filter                                                    | `"container.type!=host and container.name!=sfexporter and container.name!=sfcollector"`                                      |
+| `sfcollector.criPath`         | Use this criPath if running docker runtime                           |                                           |
 | `sfexporter.repository`       | The image repository to pull from                                    | `sysflowtelemetry/sf-exporter`              |
 | `sfexporter.tag`              | The image tag to pull                                                | `latest`                                    |
 | `sfexporter.interval`         | Export interval in seconds                                           | `30`                                        |
@@ -63,21 +62,14 @@ The following table lists the configurable parameters of the SysFlow chart and t
 | `sfexporter.s3Endpoint`       | Object store address (must be overridden)                            | `localhost`                                          |
 | `sfexporter.s3Port`           | Object store port                                                    | `443`                                       |
 | `sfexporter.s3Bucket`         | Object store bucket where to push traces                             | `sf-monitoring`                             |
-| `sfexporter.s3Location`       | Object store location                                                | ``                                          |
-| `sfexporter.s3AccessKey`      | Object store access key (must be overridden)                         | ``                                          |
-| `sfexporter.s3SecretKey`      | Object store secret key (must be overridden)                         | ``                                          |
+| `sfexporter.s3Location`       | Object store location                                                |                                           |
+| `sfexporter.s3AccessKey`      | Object store access key (must be overridden)                         |                                           |
+| `sfexporter.s3SecretKey`      | Object store secret key (must be overridden)                         |                                           |
 | `sfexporter.s3Secure`         | Object store connection, 'true' if TLS-enabled, 'false' otherwise    | `true`                                      |
 | `resources.requests.cpu`      | CPU requested for being run in a node                                | `600m`                                      |
-| `resources.requests.memory    | Memory requested for being run in a node                             | `512Mi`                                     |
+| `resources.requests.memory`   | Memory requested for being run in a node                             | `512Mi`                                     |
 | `resources.limits.cpu`        | CPU limit                                                            | `2000m`                                     |
 | `resources.limits.memory`     | Memory limit                                                         | `1536Mi`                                    |
-
-Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
-
-```bash
-$ helm install --name sysflow -f values.yaml.local stable/sysflow
-```
-> **Tip**: You can use the default [values.yaml](values.yaml)
 
 ## Upgrading to the Lastest Version
 
@@ -92,4 +84,5 @@ In case you deployed the chart with a values.yaml.local file, you just need to m
 ```bash
 $ helm install --name sysflow -f values.yaml.local stable/sysflow
 ```
+> **Tip**: You can use the default [values.yaml](values.yaml)
 
